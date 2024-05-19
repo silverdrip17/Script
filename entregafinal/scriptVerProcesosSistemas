@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Función para mostrar el menú
+mostrar_menu() {
+    # Mostrar el menú utilizando Zenity
+    selection=$(zenity --list --title="Menú" --column="Opción" \
+            "1) Consultar todas las tareas del sistemas" "2) buscar una tarea concreta del sistema" "volver al menu" --height 220 --width 350)
+
+   # Verificar la opción seleccionada
+    case $selection in
+        "1) Consultar todas las tareas del sistemas")
+           htop;;
+   	"2) buscar una tarea concreta del sistema")
+           # Solicitar un valor utilizando zenity
+	valor=$(zenity --entry --title="Introduce un valor" --text="Introduce un valor:")
+	# Buscar el valor en htop
+	htop -p "$(pgrep -f "$valor")";;
+        "volver al menu")
+            ./menuPrincipal;;
+    esac
+}
+
+# Llamar a la función para mostrar el menú
+mostrar_menu
+        

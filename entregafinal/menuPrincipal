@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Función para mostrar el menú
+mostrar_menu() {
+    # Mostrar el menú utilizando Zenity
+    selection=$(zenity --list --title="Menú" --column="Opción" \
+	    "1) Consultar las tareas del sistemas" "2) Crear usuarios" "3) Buscar archivos o directorios del sistema" "Salir" --height 220 --width 350)
+
+    # Verificar la opción seleccionada
+    case $selection in
+	    "1) Consultar las tareas del sistemas")
+	    ./scriptVerProcesosSistemas;;
+    	    "2) Crear usuarios")
+            ./creacionDeUsurios;;
+    	    "3) Buscar archivos o directorios del sistema")
+            ./archivosDirectorios;;
+        "Salir")
+            zenity --info --title="Salir" --text="Saliendo del menú...";;
+    esac
+}
+
+# Llamar a la función para mostrar el menú
+mostrar_menu

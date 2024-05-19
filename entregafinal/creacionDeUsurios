@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Solicitar el nombre de usuario utilizando zenity
+usuario=$(zenity --entry --title="Crear usuario" --text="Introduce el nombre de usuario:")
+
+# Crear el usuario
+sudo useradd "$usuario"
+
+# Establecer una contraseña para el usuario
+sudo passwd "$usuario"
+
+# Mostrar un mensaje de confirmación
+zenity --info --title="Usuario creado" --text="El usuario $usuario ha sido creado correctamente."
