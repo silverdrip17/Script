@@ -1,11 +1,12 @@
 #!/bin/bash
 
-# Solicitar al usuario que seleccione un archivo o directorio
-ruta=$(zenity --file-selection --title="Selecciona un archivo o directorio")
+# Solicitar al usuario que introduzca una ruta de archivo o directorio
+ruta=$(zenity --entry --title="Buscar archivo o directorio" --text="Introduce la ruta del archivo o directorio:")
 
 # Verificar si la ruta existe
 if [ -e "$ruta" ]; then
-    zenity --info --title="Archivo o directorio encontrado" --text="La ruta $ruta existe."
+    zenity --info --title="Archivo o directorio encontrado" --text="La ruta $ruta existe en el sistema." >> mensajes.txt
 else
-    zenity --info --title="Archivo o directorio no encontrado" --text="La ruta $ruta no existe."
+    zenity --error --title="Archivo o directorio no encontrado" --text="La ruta $ruta no existe en el sistema." 2>> error.txt
 fi
+
