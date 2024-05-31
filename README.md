@@ -20,9 +20,9 @@ Este repositorio contiene varios scripts de bash que utilizan Zenity para la int
 
 Lo primero que habra que hacer sera instalar la carpeta con los scripts y despues procedemos a darles permisos de ejecucion de la siguiente manera:
 
-'''bash
+```bash
 sudo chamos+x
-
+```
 Para ejecutar estos scripts, debes tener instalado Zenity en tu sistema. Si no lo tienes, puedes instalarlo con el siguiente comando en sistemas basados en Debian, como Ubuntu:
 
 ```bash
