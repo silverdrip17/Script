@@ -6,7 +6,12 @@ ruta=$(zenity --entry --title="Buscar archivo o directorio" --text="Introduce la
 # Verificar si la ruta existe
 if [ -e "$ruta" ]; then
     zenity --info --title="Archivo o directorio encontrado" --text="La ruta $ruta existe en el sistema." >> mensajes.txt
+    if [ $? -ne 0 ]; then
+        echo "Hubo un error al escribir en mensajes.txt. Por favor, revisa los permisos del archivo." >> error.txt
+    fi
 else
     zenity --error --title="Archivo o directorio no encontrado" --text="La ruta $ruta no existe en el sistema." 2>> error.txt
+    if [ $? -ne 0 ]; then
+        echo "Hubo un error al mostrar el mensaje de error con zenity. Por favor, revisa si zenity está instalado y funcionando correctamente." >> error.txt
+    fi
 fi
-
