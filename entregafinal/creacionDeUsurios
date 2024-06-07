@@ -3,24 +3,16 @@
 # Solicitar el nombre de usuario utilizando zenity
 usuario=$(zenity --entry --title="Crear usuario" --text="Introduce el nombre de usuario:")
 
-# Solicitar la contraseña utilizando zenity
-password=$(zenity --password --title="Crear usuario" --text="Introduce la contraseña:")
+# Crear el usuario y redirigir los errores a un archivo
+sudo useradd "$usuario" 2> error.txt
 
-# Comprobar si el usuario ya existe
-if id -u "$usuario" >/dev/null 2>&1; then
-    zenity --error --title="Error" --text="El usuario $usuario ya existe."
+# Establecer una contraseña para el usuario y redirigir los errores a un archivo
+echo "password" | sudo passwd --stdin "$usuario" 2>> error.txt
+
+# Mostrar un mensaje de confirmación
+if [ $? -eq 0 ]; then
+    zenity --info --title="Usuario creado" --text="El usuario $usuario ha sido creado correctamente."
 else
-    # Crear el usuario y redirigir los errores a un archivo
-    sudo useradd "$usuario" 2> error.txt
-
-    # Establecer una contraseña para el usuario y redirigir los errores a un archivo
-    echo "$usuario:$password" | sudo chpasswd 2>> error.txt
-
-    # Mostrar un mensaje de confirmación
-    if [ $? -eq 0 ]; then
-        zenity --info --title="Usuario creado" --text="El usuario $usuario ha sido creado correctamente."
-        echo "El usuario $usuario ha sido creado correctamente." >> usuarios_creados.txt
-    else
-        zenity --error --title="Error" --text="Hubo un error al crear el usuario. Por favor, revisa el archivo error.txt para más detalles."
-    fi
+    zenity --error --title="Error" --text="Hubo un error al crear el usuario. Por favor, revisa el archivo error.txt para más detalles."
 fi
+

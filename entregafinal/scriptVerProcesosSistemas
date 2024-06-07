@@ -9,26 +9,17 @@ mostrar_menu() {
    # Verificar la opción seleccionada
     case $selection in
         "1) Consultar todas las tareas del sistemas")
-           htop
-           if [ $? -ne 0 ]; then
-               zenity --error --title="Error" --text="Hubo un error al ejecutar htop. Por favor, revisa la consola para más detalles."
-           fi;;
+           htop;;
    	"2) buscar una tarea concreta del sistema")
            # Solicitar un valor utilizando zenity
-	       valor=$(zenity --entry --title="Introduce un valor" --text="Introduce un valor:")
-	       # Buscar el valor en htop
-	       htop -p "$(pgrep -f "$valor")"
-           if [ $? -ne 0 ]; then
-               zenity --error --title="Error" --text="Hubo un error al buscar la tarea. Por favor, revisa la consola para más detalles."
-           fi;;
+	valor=$(zenity --entry --title="Introduce un valor" --text="Introduce un valor:")
+	# Buscar el valor en htop
+	htop -p "$(pgrep -f "$valor")";;
         "volver al menu")
-            ./menuPrincipal
-            if [ $? -ne 0 ]; then
-                zenity --error --title="Error" --text="Hubo un error al volver al menú principal. Por favor, revisa la consola para más detalles."
-            fi;;
+            ./menuPrincipal;;
     esac
 }
 
 # Llamar a la función para mostrar el menú
 mostrar_menu
-
+        
